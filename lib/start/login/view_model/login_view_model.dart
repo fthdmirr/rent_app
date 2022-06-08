@@ -1,36 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:rent_app/authentication/register/service/register_service.dart';
-import 'package:rent_app/home/view/home_view.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class RegisterViewModel extends ChangeNotifier {
+import '../../../home/view/home_view.dart';
+import '../service/login_service.dart';
+
+class LoginViewModel extends ChangeNotifier {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _repeatPasswordController =
-      TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
   TextEditingController get email => _emailController;
   TextEditingController get password => _passwordController;
-  TextEditingController get repeatPassword => _repeatPasswordController;
   GlobalKey<FormState> get formKey => _formKey;
 
   bool isDone = true;
 
-  Future register(BuildContext context) async {
+  login(BuildContext context) async {
     if (_formKey.currentState?.validate() ?? false) {
-      final response = await _getRegisterResult();
+      final response = await _getLoginResult();
 
-      _responseActions(context, response);
+      _responseActions(context, response ?? '');
 
       notifyListeners();
     }
   }
 
-  Future<bool> _getRegisterResult() async {
+  _getLoginResult() async {
     _changeStatus;
-    final result =
-        await RegisterService().postRegister(email.text, password.text);
+    final result = await LoginService().getLogin(email.text, password.text);
     _changeStatus;
 
     return result;
@@ -41,8 +39,11 @@ class RegisterViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void _responseActions(BuildContext context, bool response) {
-    if (!response) {
+  Future<void> _responseActions(BuildContext context, String token) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('token', token);
+
+    if (token.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         backgroundColor: Colors.red,
         content: Text("Error"),
