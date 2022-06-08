@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
-import 'package:rent_app/authentication/login/view/login_view.dart';
-import 'package:rent_app/authentication/register/view_model/register_view_model.dart';
-import 'package:rent_app/utils/widget/custom_input_widget.dart';
+import '../../../utils/widget/custom_input_widget.dart';
 
-class RegisterView extends StatelessWidget {
-  const RegisterView({Key? key}) : super(key: key);
+import '../view_model/login_view_model.dart';
+
+class LoginView extends StatelessWidget {
+  const LoginView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Form(
-        key: Provider.of<RegisterViewModel>(context).formKey,
+        key: context.read<LoginViewModel>().formKey,
         child: Padding(
           padding: context.paddingNormal,
           child: Column(
@@ -21,7 +21,7 @@ class RegisterView extends StatelessWidget {
               SizedBox(height: context.dynamicHeight(0.15)),
               Center(
                 child: Text(
-                  'Create an account',
+                  'Login an account',
                   style: context.textTheme.headline6
                       ?.copyWith(fontWeight: FontWeight.w900),
                 ),
@@ -29,7 +29,7 @@ class RegisterView extends StatelessWidget {
               context.emptySizedHeightBoxNormal,
               CustomInputWidget(
                 labelText: 'Email Address',
-                controller: context.read<RegisterViewModel>().email,
+                controller: context.watch<LoginViewModel>().email,
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
                     return 'Email is required';
@@ -40,7 +40,7 @@ class RegisterView extends StatelessWidget {
               context.emptySizedHeightBoxLow3x,
               CustomInputWidget(
                 labelText: 'Password',
-                controller: context.read<RegisterViewModel>().password,
+                controller: context.watch<LoginViewModel>().password,
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
                     return 'Password is required';
@@ -48,24 +48,12 @@ class RegisterView extends StatelessWidget {
                   return null;
                 },
               ),
-              context.emptySizedHeightBoxLow3x,
-              CustomInputWidget(
-                labelText: 'Repeat Password',
-                controller: context.read<RegisterViewModel>().repeatPassword,
-                validator: (String? value) {
-                  if (context.read<RegisterViewModel>().repeatPassword.text !=
-                      context.read<RegisterViewModel>().password.text) {
-                    return 'Passwords must be same';
-                  }
-                  return null;
-                },
-              ),
               context.emptySizedHeightBoxNormal,
-              Consumer<RegisterViewModel>(
+              Consumer<LoginViewModel>(
                 builder: (context, viewModel, _) => viewModel.isDone
                     ? ElevatedButton(
                         onPressed: () {
-                          viewModel.register(context);
+                          viewModel.login(context);
                         },
                         style: ButtonStyle(
                           foregroundColor:
@@ -76,31 +64,10 @@ class RegisterView extends StatelessWidget {
                               context.dynamicWidth(0.8),
                               context.dynamicHeight(0.06))),
                         ),
-                        child: Text(
-                          'Create an account',
-                          style: context.textTheme.button
-                              ?.copyWith(fontWeight: FontWeight.bold),
-                        ),
+                        child: const Text('Login an account'),
                       )
                     : const CircularProgressIndicator.adaptive(),
               ),
-              context.emptySizedHeightBoxLow3x,
-              TextButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const LoginView(),
-                      ));
-                },
-                child: Text(
-                  'Already have an account?',
-                  style: context.textTheme.bodyText2
-                      ?.copyWith(fontWeight: FontWeight.w300),
-                ),
-              ),
-              context.emptySizedHeightBoxNormal,
-              Divider(thickness: context.dynamicHeight(0.0025)),
               context.emptySizedHeightBoxNormal,
               ElevatedButton.icon(
                 icon: const Icon(FontAwesomeIcons.github),
