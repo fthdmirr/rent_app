@@ -19,4 +19,5 @@ class AuthenticationStatus extends ChangeNotifier {
     }
     notifyListeners();
   }
+
 }

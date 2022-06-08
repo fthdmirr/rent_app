@@ -1,14 +1,14 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:rent_app/utils/constant/service_constants.dart';
 
 class LoginService {
-  final String _baseUrl =
-      'https://c1-na.altogic.com/e:629a6b6a9cf83b3805522976';
+
 
   //TODO: servisten gelen token döndürülecek
   Future<String?> getLogin(String email,String password) async {
-    final uri = Uri.parse('$_baseUrl/users/sing-in');
+    final uri = Uri.parse('${ServiceConstant.baseUrl}/users/sing-in');
 
     try {
       final response = await http.post(
