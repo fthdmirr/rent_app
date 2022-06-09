@@ -3,7 +3,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
 import '../view_model/profile_view_model.dart';
-import '../../start/user/view_model/user_view_model.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({Key? key}) : super(key: key);
@@ -30,10 +29,12 @@ class ProfileView extends StatelessWidget {
                     radius: 50,
                     backgroundImage: AssetImage('assets/profile.jpg'),
                   ),
-                  Text(
-                    context.read<UserViewModel>().user?.fullName ?? 'Test Name',
-                    style: context.textTheme.headline6
-                        ?.copyWith(fontWeight: FontWeight.bold),
+                  Consumer<ProfileViewModel>(
+                    builder: (context, value, child) => Text(
+                      value.user?.fullName ?? 'Test Name',
+                      style: context.textTheme.headline6
+                          ?.copyWith(fontWeight: FontWeight.bold),
+                    ),
                   ),
                   IconButton(
                       onPressed: () {},
@@ -52,44 +53,51 @@ class ProfileView extends StatelessWidget {
               SizedBox(
                 height: context.dynamicHeight(0.175),
                 width: double.infinity,
-                child: ListView.separated(
-                  itemCount: 5,
-                  scrollDirection: Axis.horizontal,
-                  physics: const BouncingScrollPhysics(),
-                  itemBuilder: (context, index) => SizedBox(
-                    width: context.dynamicWidth(0.45),
-                    height: context.dynamicHeight(0.175),
-                    child: Stack(
-                      children: [
-                        ClipRRect(
-                          borderRadius:
-                              BorderRadius.circular(context.dynamicWidth(0.05)),
-                          child: Image.network(
-                            'https://i.hizliresim.com/lyrhvse.jpeg',
-                            fit: BoxFit.cover,
+                child: Consumer<ProfileViewModel>(
+                    builder: (context, viewModel, _) {
+                  return viewModel.isDone
+                      ? ListView.separated(
+                          itemCount: viewModel.products.length,
+                          scrollDirection: Axis.horizontal,
+                          physics: const BouncingScrollPhysics(),
+                          itemBuilder: (context, index) => SizedBox(
                             width: context.dynamicWidth(0.45),
                             height: context.dynamicHeight(0.175),
-                          ),
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Align(
-                            alignment: Alignment.bottomCenter,
-                            child: Text(
-                              'Monster Abra 32Gb Sıfır',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500,
-                              ),
+                            child: Stack(
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(
+                                      context.dynamicWidth(0.05)),
+                                  child: Image.network(
+                                    viewModel.products[index]
+                                            .productImages?[0] ??
+                                        'https://i.hizliresim.com/lyrhvse.jpeg',
+                                    fit: BoxFit.cover,
+                                    width: context.dynamicWidth(0.45),
+                                    height: context.dynamicHeight(0.175),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Align(
+                                    alignment: Alignment.bottomCenter,
+                                    child: Text(
+                                      viewModel.products[index].name ?? '',
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ],
                             ),
                           ),
+                          separatorBuilder: (context, index) =>
+                              SizedBox(width: context.lowValue),
                         )
-                      ],
-                    ),
-                  ),
-                  separatorBuilder: (context, index) =>
-                      SizedBox(width: context.lowValue),
-                ),
+                      : const CircularProgressIndicator.adaptive();
+                }),
               ),
               context.emptySizedHeightBoxLow3x,
               TextButton(

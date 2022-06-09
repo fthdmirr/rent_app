@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:rent_app/home/view/home/home.dart';
+import 'package:rent_app/home/view/tab_view.dart';
 import 'package:rent_app/start/user/service/user_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -53,7 +54,7 @@ class UserViewModel extends ChangeNotifier {
       Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (context) => Home(),
+            builder: (context) => const TabView(),
           ),
           (route) => false);
     }
