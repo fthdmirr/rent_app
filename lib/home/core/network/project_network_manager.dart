@@ -3,17 +3,18 @@ import 'package:dio/dio.dart';
 import '../base_model.dart';
 
 class ProjectNetworkManager {
-  static ProjectNetworkManager? _instace; 
+  static ProjectNetworkManager? _instace;
   static ProjectNetworkManager get instance {
     if (_instace != null) return _instace!;
     _instace = ProjectNetworkManager._init();
     return _instace!;
   }
 
-  final String _baseUrl = 'https://c1-na.altogic.com/e:629a6b6a9cf83b3805522976'; 
+  final String _baseUrl = 'https://c1-na.altogic.com';
   late final Dio dio; //Dio paketini kullanııyoruz
 
-  ProjectNetworkManager._init() { //_init fonksiyonu private olarak tanımladık
+  ProjectNetworkManager._init() {
+    //_init fonksiyonu private olarak tanımladık
     dio = Dio(BaseOptions(baseUrl: _baseUrl));
 
     dio.interceptors.add(InterceptorsWrapper(
@@ -23,7 +24,8 @@ class ProjectNetworkManager {
         if (data is Map<String, dynamic>) {
           final model = BaseResponseModel.fromJson(data);
           if (model.countInfo?.count == 0) {
-            handler.reject(DioError( //reject fonksiyonu dio error olarak döndürür
+            handler.reject(DioError(
+              //reject fonksiyonu dio error olarak döndürür
               requestOptions: RequestOptions(path: e.realUri.path),
             ));
             return;
