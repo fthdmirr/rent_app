@@ -13,6 +13,7 @@ class User {
 
   User(this.firstName, this.lastName, this.profilePicture, this.productList, this.id);
 
+  String get fullName=> '$firstName $lastName';
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 

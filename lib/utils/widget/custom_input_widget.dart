@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:kartal/kartal.dart';
 
 class CustomInputWidget extends StatelessWidget {

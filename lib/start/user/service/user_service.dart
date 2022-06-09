@@ -3,34 +3,41 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
-import 'package:rent_app/utils/constant/service_constants.dart';
 
+import '../../../utils/constant/service_constants.dart';
 import '../model/user_model.dart';
 
 class UserService {
-  Future<int> sendPhoto(File file, String fileName, String token) async {
+  Future<int?> sendPhoto(File file, String fileName, String token) async {
     final url = Uri.parse('${ServiceConstant.baseUrl}/users/upload-photo');
-    final request = http.MultipartRequest('POST', url);
-    request.files.add(
-      http.MultipartFile(
-        'file',
-        file.readAsBytes().asStream(),
-        file.lengthSync(),
-        filename: fileName,
-        contentType: MediaType('image', 'jpg'),
-      ),
-    );
 
-    request.headers.addAll(
-      {
-        'Content-Type': 'multipart/form-data',
-        'Session': token,
-      },
-    );
+    try {
+      final request = http.MultipartRequest('POST', url);
 
-    final respone = await request.send();
+      request.headers.addAll(
+        {
+          'Content-Type': 'multipart/form-data',
+          'Session': token,
+        },
+      );
 
-    return respone.statusCode;
+      request.files.add(
+        http.MultipartFile(
+          'image',
+          file.readAsBytes().asStream(),
+          file.lengthSync(),
+          filename: fileName,
+          contentType: MediaType('application', 'x-tar'),
+        ),
+      );
+
+      final respone = await request.send();
+
+      return respone.statusCode;
+    } catch (e) {
+      print(e);
+    }
+    return null;
   }
 
   Future<User?> sendNameInfos(
@@ -40,7 +47,7 @@ class UserService {
     try {
       final response = await http.put(
         uri,
-        headers: {'Content-Type': 'application/json; charset=UTF-8'},
+        headers: {'Content-Type': 'application/json'},
         body: json.encode({
           'firstName': firstName,
           'lastName': lastName,
@@ -56,4 +63,6 @@ class UserService {
     }
     return null;
   }
+
+
 }
