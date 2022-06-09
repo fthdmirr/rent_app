@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rent_app/product_detail/view/product_detail_view.dart';
 import 'package:rent_app/profile/view_model/profile_view_model.dart';
 import 'package:rent_app/start/authentication/authentication_status.dart';
 import 'package:rent_app/start/user/view/user_view.dart';
@@ -12,8 +13,7 @@ void main() => runApp(
         providers: [
           ChangeNotifierProvider(create: (_) => RegisterViewModel()),
           ChangeNotifierProvider(create: (_) => LoginViewModel()),
-          ChangeNotifierProvider(
-              create: (_) => AuthenticationStatus()..initStatus(), lazy: false),
+          ChangeNotifierProvider(create: (_) => AuthenticationStatus()..initStatus(), lazy: false),
           ChangeNotifierProvider(create: (_) => ProfileViewModel()),
           ChangeNotifierProvider(create: (_) => UserViewModel()),
         ],
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Rent App',
-      home: UserView(),
+      home: ProductDetailView(),
     );
   }
 }
