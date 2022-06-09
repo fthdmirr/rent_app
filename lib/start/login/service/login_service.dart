@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:rent_app/utils/constant/service_constants.dart';
+import '../../../utils/constant/service_constants.dart';
 
 class LoginService {
 

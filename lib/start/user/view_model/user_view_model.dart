@@ -2,8 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:rent_app/home/view/home_view.dart';
-import 'package:rent_app/start/user/service/user_service.dart';
+import 'package:path/path.dart';
+import '../../../profile/view/profile_view.dart';
+import '../service/user_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../model/user_model.dart';
@@ -36,10 +37,10 @@ class UserViewModel extends ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
     final userId = prefs.getString('id');
-    /*
+    
     final int statusCode =
-        await _service.sendPhoto(imageFile!, basename(imageFile!.path), token ?? '');
-        */
+        await _service.sendPhoto(imageFile!, basename(imageFile!.path), token!) ?? 404;
+        
 
     user = await _service.sendNameInfos(
       userId ?? '',
@@ -53,7 +54,7 @@ class UserViewModel extends ChangeNotifier {
       Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (context) => const HomeView(),
+            builder: (context) => const ProfileView(),
           ),
           (route) => false);
     }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import '../../../profile/view/profile_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../home/view/home_view.dart';
 import '../service/login_service.dart';
 
 class LoginViewModel extends ChangeNotifier {
@@ -20,7 +20,8 @@ class LoginViewModel extends ChangeNotifier {
     if (_formKey.currentState?.validate() ?? false) {
       final response = await _getLoginResult();
 
-      _responseActions(context, response?['token'] ?? '', response?['userId'] ?? '');
+      _responseActions(
+          context, response?['token'] ?? '', response?['userId'] ?? '');
 
       notifyListeners();
     }
@@ -57,7 +58,7 @@ class LoginViewModel extends ChangeNotifier {
       Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (context) => const HomeView(),
+            builder: (context) => const ProfileView(),
           ),
           (route) => false);
     }
