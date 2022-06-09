@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rent_app/authentication/register/service/register_service.dart';
-import 'package:rent_app/home/view/home_view.dart';
-
+import 'package:rent_app/home/view/home.dart';
 class RegisterViewModel extends ChangeNotifier {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -55,7 +54,7 @@ class RegisterViewModel extends ChangeNotifier {
       Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (context) => const HomeView(),
+            builder: (context) => Home(),
           ),
           (route) => false);
     }
