@@ -20,13 +20,13 @@ class LoginViewModel extends ChangeNotifier {
     if (_formKey.currentState?.validate() ?? false) {
       final response = await _getLoginResult();
 
-      _responseActions(context, response ?? '');
+      _responseActions(context, response?['token'] ?? '', response?['userId'] ?? '');
 
       notifyListeners();
     }
   }
 
-  _getLoginResult() async {
+  Future<Map<String, dynamic>?> _getLoginResult() async {
     _changeStatus;
     final result = await LoginService().getLogin(email.text, password.text);
     _changeStatus;
@@ -39,7 +39,8 @@ class LoginViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> _responseActions(BuildContext context, String token) async {
+  Future<void> _responseActions(
+      BuildContext context, String token, String id) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString('token', token);
 

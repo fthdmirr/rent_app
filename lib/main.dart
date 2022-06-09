@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rent_app/profile/view/profile_view.dart';
 import 'package:rent_app/profile/view_model/profile_view_model.dart';
 import 'package:rent_app/start/authentication/authentication_status.dart';
-import 'package:rent_app/start/user/view/user_view.dart';
 import 'package:rent_app/start/user/view_model/user_view_model.dart';
 import 'start/login/view_model/login_view_model.dart';
 import 'start/register/view_model/register_view_model.dart';
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Rent App',
-      home: UserView(),
+      home: ProfileView(),
     );
   }
 }

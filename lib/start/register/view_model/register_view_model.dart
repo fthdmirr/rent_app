@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rent_app/start/user/view/user_view.dart';
 import '../../../home/view/home_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -23,13 +24,13 @@ class RegisterViewModel extends ChangeNotifier {
     if (_formKey.currentState?.validate() ?? false) {
       final response = await _getRegisterResult();
 
-      _responseActions(context, response ?? '');
+      _responseActions(context, response?['token'] ?? '', response?['userId'] ?? '');
 
       notifyListeners();
     }
   }
 
-  Future<String?> _getRegisterResult() async {
+  Future<Map<String, dynamic>?> _getRegisterResult() async {
     _changeStatus;
     final result =
         await RegisterService().postRegister(email.text, password.text);
@@ -43,11 +44,13 @@ class RegisterViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> _responseActions(BuildContext context, String token) async {
+  Future<void> _responseActions(
+      BuildContext context, String token, String id) async {
     final prefs = await SharedPreferences.getInstance();
 
     prefs.setString('token', token);
-    
+    prefs.setString('id', id);
+
     if (token.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         backgroundColor: Colors.red,
@@ -61,7 +64,7 @@ class RegisterViewModel extends ChangeNotifier {
       Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (context) => const HomeView(),
+            builder: (context) => const UserView(),
           ),
           (route) => false);
     }

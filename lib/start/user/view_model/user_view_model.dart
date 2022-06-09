@@ -6,6 +6,8 @@ import 'package:rent_app/home/view/home_view.dart';
 import 'package:rent_app/start/user/service/user_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../model/user_model.dart';
+
 class UserViewModel extends ChangeNotifier {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
@@ -17,6 +19,10 @@ class UserViewModel extends ChangeNotifier {
 
   final _service = UserService();
 
+  User? user;
+
+  bool isDone = true;
+
   getPhotoFromGallery() async {
     final XFile? file = await _picker.pickImage(source: ImageSource.gallery);
     if (file != null) {
@@ -26,12 +32,24 @@ class UserViewModel extends ChangeNotifier {
   }
 
   sendInfosToServiceAndNavigateToHome(BuildContext context) async {
+    _changeStatus;
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
+    final userId = prefs.getString('id');
+    /*
     final int statusCode =
-        await _service.sendPhoto(imageFile!, 'fileName', token ?? '');
+        await _service.sendPhoto(imageFile!, basename(imageFile!.path), token ?? '');
+        */
 
-    if (statusCode == 200) {
+    user = await _service.sendNameInfos(
+      userId ?? '',
+      nameController.text,
+      lastNameController.text,
+    );
+
+    _changeStatus;
+
+    if (user != null) {
       Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
@@ -39,5 +57,10 @@ class UserViewModel extends ChangeNotifier {
           ),
           (route) => false);
     }
+  }
+
+  get _changeStatus {
+    isDone = !isDone;
+    notifyListeners();
   }
 }

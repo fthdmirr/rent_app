@@ -42,23 +42,33 @@ class UserView extends StatelessWidget {
           ),
           context.emptySizedHeightBoxLow3x,
           CustomInputWidget(
-            controller: context.watch<UserViewModel>().getNameController,
+            controller: context.watch<UserViewModel>().getLastNameController,
             labelText: 'Last Name',
           ),
           context.emptySizedHeightBoxNormal,
-          ElevatedButton.icon(
-            icon: const Icon(Icons.done),
-            label: Text('Done',
-                style: context.textTheme.button
-                    ?.copyWith(fontWeight: FontWeight.bold)),
-            onPressed: () {},
-            style: ButtonStyle(
-              foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
-              backgroundColor:
-                  MaterialStateProperty.all<Color>(const Color(0xffFCDE69)),
-              minimumSize: MaterialStateProperty.all<Size>(
-                  Size(context.dynamicWidth(0.8), context.dynamicHeight(0.06))),
-            ),
+          Consumer<UserViewModel>(
+            builder: (context, viewModel, _) => viewModel.isDone
+                ? ElevatedButton.icon(
+                    icon: const Icon(Icons.done),
+                    label: Text('Done',
+                        style: context.textTheme.button
+                            ?.copyWith(fontWeight: FontWeight.bold)),
+                    onPressed: () {
+                      context
+                          .read<UserViewModel>()
+                          .sendInfosToServiceAndNavigateToHome(context);
+                    },
+                    style: ButtonStyle(
+                      foregroundColor:
+                          MaterialStateProperty.all<Color>(Colors.black),
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                          const Color(0xffFCDE69)),
+                      minimumSize: MaterialStateProperty.all<Size>(Size(
+                          context.dynamicWidth(0.8),
+                          context.dynamicHeight(0.06))),
+                    ),
+                  )
+                : const CircularProgressIndicator.adaptive(),
           ),
         ],
       ),
