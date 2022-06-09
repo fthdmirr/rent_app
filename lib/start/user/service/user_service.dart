@@ -2,7 +2,10 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
 import 'package:rent_app/utils/constant/service_constants.dart';
+
+import '../model/user_model.dart';
 
 class UserService {
   Future<int> sendPhoto(File file, String fileName, String token) async {
@@ -14,7 +17,7 @@ class UserService {
         file.readAsBytes().asStream(),
         file.lengthSync(),
         filename: fileName,
-        // contentType: MediaType('image', 'jpeg'),
+        contentType: MediaType('image', 'jpg'),
       ),
     );
 
@@ -30,13 +33,14 @@ class UserService {
     return respone.statusCode;
   }
 
-  sendNameInfos(String firstName, String lastName) async {
-    final uri = Uri.parse('${ServiceConstant.baseUrl}/users/sing-up');
+  Future<User?> sendNameInfos(
+      String id, String firstName, String lastName) async {
+    final uri = Uri.parse('${ServiceConstant.baseUrl}/users/$id');
 
     try {
-      final response = await http.post(
+      final response = await http.put(
         uri,
-        headers: {'Content-Type': 'application/json'},
+        headers: {'Content-Type': 'application/json; charset=UTF-8'},
         body: json.encode({
           'firstName': firstName,
           'lastName': lastName,
@@ -44,7 +48,8 @@ class UserService {
       );
       if (response.statusCode == 200) {
         final result = jsonDecode(response.body) as Map<String, dynamic>;
-        return result['session']['token'];
+
+        return User.fromJson(result);
       }
     } catch (e) {
       throw Exception(e);

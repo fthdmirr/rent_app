@@ -7,7 +7,7 @@ class LoginService {
 
 
   //TODO: servisten gelen token döndürülecek
-  Future<String?> getLogin(String email,String password) async {
+  Future<Map<String,dynamic>?> getLogin(String email,String password) async {
     final uri = Uri.parse('${ServiceConstant.baseUrl}/users/sing-in');
 
     try {
@@ -21,7 +21,7 @@ class LoginService {
       );
        if (response.statusCode == 200) {
         final result = json.decode(response.body) as Map<String,dynamic>;
-        return result['session']['token'];
+        return result['session'];
       }
     } catch (e) {
       throw Exception(e);

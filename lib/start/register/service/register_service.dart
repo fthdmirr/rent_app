@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import '../../../utils/constant/service_constants.dart';
 
 class RegisterService {
-  Future<String?> postRegister(String email, String password) async {
+  Future<Map<String,dynamic>?> postRegister(String email, String password) async {
     final uri = Uri.parse('${ServiceConstant.baseUrl}/users/sing-up');
 
     try {
@@ -19,7 +19,7 @@ class RegisterService {
       );
       if (response.statusCode == 200) {
         final result = jsonDecode(response.body) as Map<String, dynamic>;
-        return result['session']['token'];
+        return result['session'];
       }
     } catch (e) {
       throw Exception(e);
