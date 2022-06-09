@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:rent_app/home/view/home_view.dart';
-import 'package:rent_app/start/register/view/register_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 enum AuthenticationStatusEnum { authenticated, unauthenticated, unknown }

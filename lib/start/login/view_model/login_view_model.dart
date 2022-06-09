@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:rent_app/home/view/home/home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../home/view/home_view.dart';
 import '../service/login_service.dart';
 
 class LoginViewModel extends ChangeNotifier {
@@ -57,7 +57,7 @@ class LoginViewModel extends ChangeNotifier {
       Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (context) => const HomeView(),
+            builder: (context) => Home(),
           ),
           (route) => false);
     }

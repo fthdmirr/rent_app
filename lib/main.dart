@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rent_app/profile/view/profile_view.dart';
+import 'package:rent_app/home/view/tab_view.dart';
 import 'package:rent_app/profile/view_model/profile_view_model.dart';
 import 'package:rent_app/start/authentication/authentication_status.dart';
 import 'package:rent_app/start/user/view_model/user_view_model.dart';
@@ -26,10 +26,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
+      theme: ThemeData(
+        appBarTheme: AppBarTheme(
+          iconTheme:  IconThemeData(color: Colors.black),
+        )
+      ),
       debugShowCheckedModeBanner: false,
       title: 'Rent App',
-      home: ProfileView(),
+      home: TabView(),
     );
   }
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:rent_app/start/user/view/user_view.dart';
-import '../../../home/view/home_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../service/register_service.dart';
