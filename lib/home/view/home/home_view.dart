@@ -1,9 +1,8 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
-import 'package:rent_app/home/view/home_view_view_model.dart';
-import 'package:rent_app/home/view/new_ad.dart';
-import 'package:rent_app/utils/network.dart';
+import 'package:rent_app/home/view/home/home_view_view_model.dart';
+import 'package:rent_app/home/view/product/product.dart';
 
 class HomeView extends HomeViewViewModel {
   @override
@@ -32,9 +31,6 @@ class HomeView extends HomeViewViewModel {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    height: size.height * 0.01,
-                  ),
                   ClipRRect(
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(26),
@@ -45,6 +41,9 @@ class HomeView extends HomeViewViewModel {
                       width: size.width,
                       fit: BoxFit.cover,
                     ),
+                  ),
+                  SizedBox(
+                    height: size.height * 0.007,
                   ),
                   Padding(
                     padding: EdgeInsets.only(
@@ -104,7 +103,7 @@ class HomeView extends HomeViewViewModel {
           IconButton(
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => AddNewAd()));
+                    MaterialPageRoute(builder: (context) => Product()));
               },
               icon: Icon(Icons.add_box_outlined))
         ],

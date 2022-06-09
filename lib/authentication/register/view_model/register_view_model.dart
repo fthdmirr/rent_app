@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rent_app/authentication/register/service/register_service.dart';
-import 'package:rent_app/home/view/home.dart';
+import 'package:rent_app/home/view/home/home.dart';
 class RegisterViewModel extends ChangeNotifier {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();

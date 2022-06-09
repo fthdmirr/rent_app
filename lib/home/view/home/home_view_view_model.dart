@@ -24,7 +24,13 @@ abstract class HomeViewViewModel extends State<Home> {
       }
     }
     setState(() {});
-  }
+  } 
+  @override
+  void initState() {
+    super.initState();
+    fetchAllData();
+}
+  
 }
 
 enum ServicePath { PRODUCTS }

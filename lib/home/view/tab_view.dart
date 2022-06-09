@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:rent_app/home/view/home.dart';
+import 'package:rent_app/home/view/home/home.dart';
 
 import '../../profile/view/profile_view.dart';
 
@@ -57,11 +57,11 @@ class _TabViewState extends State<TabView> {
             label: 'Ana Sayfa',
           ),
           BottomNavigationBarItem(
-              icon: Icon(
-                Icons.person_outlined,
-                color: (_page == 1) ? Colors.black : Colors.orange,
-              ),
-              label: 'Profil',
+            icon: Icon(
+              Icons.person_outlined,
+              color: (_page == 1) ? Colors.black : Colors.orange,
+            ),
+            label: 'Profil',
           ),
         ],
         onTap: navigationTapped,
