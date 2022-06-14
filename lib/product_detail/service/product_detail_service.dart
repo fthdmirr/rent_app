@@ -1,43 +1,33 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:rent_app/home/core/network/project_network_manager.dart';
 import 'package:rent_app/home/model/home_model.dart';
 
+import 'dart:convert';
 
-abstract class IProductDetailService {
-  final Dio dio;
+import 'package:http/http.dart' as http;
 
-  IProductDetailService(this.dio);
-
-  Future<ProductModel?> fetchProductItemWithId(String id);
-}
+import '../../home/model/home_model.dart';
 
 enum _ProductDetailPath { products }
 
-enum _ProductDetailQueryPath { userId }
+class ProductDetailService {
+  final String _baseUrl =
+      "https://c1-na.altogic.com/e:629a6b6a9cf83b3805522976";
+  ProductModel model = ProductModel();
 
-class ProductDetailService extends IProductDetailService {
-  ProductDetailService(super.dio);
-  @override
-  final dio = Dio(BaseOptions(baseUrl: "https://c1-na.altogic.com/e:629a6b6a9cf83b3805522976"));
+  Future<ProductModel?> fetchProductDetail(String id) async {
+    final uri = Uri.parse('$_baseUrl/${_ProductDetailPath.products.name}/$id');
 
-  @override
-  Future<ProductModel?> fetchProductItemWithId(String userId) async {
     try {
-      final response = await dio
-          .get("https://c1-na.altogic.com/e:629a6b6a9cf83b3805522976/${_ProductDetailPath.products.name}/${userId}");
+      final response = await http.get(uri);
+      if (response.statusCode == 200) {
+        final result = jsonDecode(response.body) as Map<String, dynamic>;
 
-      if (response.statusCode == HttpStatus.ok) {
-        final data = response.data;
-        if (data is Map<String, dynamic>) {
-          return ProductModel.fromJson(data);
-        }
+        model = ProductModel.fromJson(result);
+        return model;
       }
-      return null;
-    } on DioError catch (e) {
-      _ShowDebug.showDioError(e, this);
+    } catch (e) {
+      throw Exception(e);
     }
   }
 }

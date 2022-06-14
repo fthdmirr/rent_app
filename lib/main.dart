@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rent_app/home/view/tab_view.dart';
+import 'package:rent_app/product_detail/view/product_detail.dart';
+import 'package:rent_app/product_detail/view/product_detail_view.dart';
 import 'package:rent_app/profile/view_model/profile_view_model.dart';
 import 'package:rent_app/start/authentication/authentication_status.dart';
 import 'package:rent_app/start/register/view/register_view.dart';
@@ -28,16 +30,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-          appBarTheme: const AppBarTheme(
-        iconTheme: IconThemeData(color: Colors.black),
-      )),
-      debugShowCheckedModeBanner: false,
-      title: 'Rent App',
-      home: context.watch<AuthenticationStatus>().status ==
-              AuthenticationStatusEnum.authenticated
-          ? const TabView()
-          : const RegisterView(),
-    );
+        theme: ThemeData(
+            appBarTheme: const AppBarTheme(
+          iconTheme: IconThemeData(color: Colors.black),
+        )),
+        debugShowCheckedModeBanner: false,
+        title: 'Rent App',
+        home: ProductDetail());
   }
 }

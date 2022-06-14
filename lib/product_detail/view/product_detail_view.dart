@@ -6,17 +6,15 @@ import 'package:rent_app/product_detail/service/product_detail_service.dart';
 import 'package:rent_app/product_detail/view/product_detail_home_view.dart';
 
 class ProductDetailView extends ProductDetailViewModel {
-  String userId = "62a1acec218de6fa8eafc824";
+  String productId = "62a1acec218de6fa8eafc824";
   bool _isLoading = false;
   ProductModel? _productDetail;
-  late final Dio _dio;
-
-  late final IProductDetailService _detailService;
+  late ProductDetailService productDetailService;
 
   @override
   void initState() {
     super.initState();
-    fetchProductDetail(userId);
+    productDetailService = ProductDetailService();
     getAll();
   }
 
@@ -32,104 +30,114 @@ class ProductDetailView extends ProductDetailViewModel {
   //   _changeLoading();
   // }
 
-  void getAll() {
-    _productDetail = model;
+  Future<void> getAll() async {
+    _changeLoading();
+    _productDetail = await productDetailService.fetchProductDetail(productId);
+    _changeLoading();
   }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      body:
-          // _isLoading
-          //     ? const Center(child: CircularProgressIndicator.adaptive())
-          //     :
-          Padding(
-        padding: EdgeInsets.only(left: size.width * 0.05, right: size.width * 0.05),
-        child: Column(
-          children: [
-            Expanded(
-              flex: 6,
-              child: Stack(
-                children: [
-                  Positioned(
-                    top: -50,
-                    height: size.height * 0.6,
-                    width: size.width * 0.9,
-                    child: _MainProductImage(imagePath: "${_productDetail?.productImages?.first}"),
-                  ),
-                  Positioned(
-                    height: size.height * 0.13,
-                    width: size.width * 0.89,
-                    bottom: -(size.height * 0.0008),
-                    left: (size.width * 0.003),
-                    child: _CustomCard(productDetail: _productDetail),
-                  )
-                ],
-              ),
-            ),
-            Expanded(
-              flex: 4,
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator.adaptive())
+          : Padding(
+              padding: EdgeInsets.only(
+                  left: size.width * 0.05, right: size.width * 0.05),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: size.height * 0.02),
-                    child: Column(
+                  Expanded(
+                    flex: 6,
+                    child: Stack(
                       children: [
-                        Text(
-                          "Gallery",
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline5
-                              ?.copyWith(color: Colors.black, fontWeight: FontWeight.w400),
+                        Positioned(
+                          top: -50,
+                          height: size.height * 0.6,
+                          width: size.width * 0.9,
+                          child: _MainProductImage(
+                              imagePath:
+                                  "${_productDetail?.productImages?.first}"),
+                        ),
+                        Positioned(
+                          height: size.height * 0.13,
+                          width: size.width * 0.89,
+                          bottom: -(size.height * 0.0008),
+                          left: (size.width * 0.003),
+                          child: _CustomCard(productDetail: _productDetail),
                         )
                       ],
                     ),
                   ),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
+                  Expanded(
+                    flex: 4,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _GalleryImage(
-                            size: size,
-                            path:
-                                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkIWznVKn2K1DM2LfvKvZAP_252_ALL0kWXw&usqp=CAU"),
-                        _GalleryImage(
-                            size: size,
-                            path:
-                                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkIWznVKn2K1DM2LfvKvZAP_252_ALL0kWXw&usqp=CAU"),
-                        _GalleryImage(
-                            size: size,
-                            path:
-                                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkIWznVKn2K1DM2LfvKvZAP_252_ALL0kWXw&usqp=CAU"),
-                        _GalleryImage(
-                            size: size,
-                            path:
-                                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkIWznVKn2K1DM2LfvKvZAP_252_ALL0kWXw&usqp=CAU"),
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: size.height * 0.02),
+                          child: Column(
+                            children: [
+                              Text(
+                                "Gallery",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline5
+                                    ?.copyWith(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w400),
+                              )
+                            ],
+                          ),
+                        ),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: [
+                              _GalleryImage(
+                                  size: size,
+                                  path:
+                                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkIWznVKn2K1DM2LfvKvZAP_252_ALL0kWXw&usqp=CAU"),
+                              _GalleryImage(
+                                  size: size,
+                                  path:
+                                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkIWznVKn2K1DM2LfvKvZAP_252_ALL0kWXw&usqp=CAU"),
+                              _GalleryImage(
+                                  size: size,
+                                  path:
+                                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkIWznVKn2K1DM2LfvKvZAP_252_ALL0kWXw&usqp=CAU"),
+                              _GalleryImage(
+                                  size: size,
+                                  path:
+                                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkIWznVKn2K1DM2LfvKvZAP_252_ALL0kWXw&usqp=CAU"),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: size.height * 0.02),
+                          child: Text(
+                            "Description",
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline5
+                                ?.copyWith(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w400),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: size.height * 0.02),
+                          child: _DescriptionText(
+                              descriptionText:
+                                  "${_productDetail?.description}"),
+                        )
                       ],
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: size.height * 0.02),
-                    child: Text(
-                      "Description",
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline5
-                          ?.copyWith(color: Colors.black, fontWeight: FontWeight.w400),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: size.height * 0.02),
-                    child: _DescriptionText(descriptionText: "${_productDetail?.description}"),
                   )
                 ],
               ),
-            )
-          ],
-        ),
-      ),
+            ),
     );
   }
 }
@@ -146,7 +154,10 @@ class _DescriptionText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       descriptionText,
-      style: Theme.of(context).textTheme.bodyText2?.copyWith(color: Colors.black54),
+      style: Theme.of(context)
+          .textTheme
+          .bodyText2
+          ?.copyWith(color: Colors.black54),
     );
   }
 }
@@ -213,7 +224,9 @@ class _CustomCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                _AddressText(address: "${productDetail?.city} ${productDetail?.district}"),
+                _AddressText(
+                    address:
+                        "${productDetail?.city} ${productDetail?.district}"),
                 _MailText(mail: "${productDetail?.createdAt}"),
               ],
             ),
@@ -235,7 +248,8 @@ class _MailText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       mail,
-      style: Theme.of(context).textTheme.subtitle1?.copyWith(color: Colors.white),
+      style:
+          Theme.of(context).textTheme.subtitle1?.copyWith(color: Colors.white),
     );
   }
 }
@@ -269,7 +283,8 @@ class _PriceText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       "\$ ${price}",
-      style: Theme.of(context).textTheme.headline6?.copyWith(color: Colors.white),
+      style:
+          Theme.of(context).textTheme.headline6?.copyWith(color: Colors.white),
     );
   }
 }

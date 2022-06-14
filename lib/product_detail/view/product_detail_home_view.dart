@@ -31,34 +31,13 @@
 //   }
 // }
 
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:rent_app/product_detail/view/product_detail.dart';
 
-import '../../home/model/home_model.dart';
-
 class ProductDetailViewModel extends State<ProductDetail> {
-  final String _baseUrl =
-      "https://c1-na.altogic.com/e:629a6b6a9cf83b3805522976";
-  ProductModel model = ProductModel();
-
-  Future<void> fetchProductDetail(String id) async {
-    final uri = Uri.parse('${_baseUrl}/products/$id');
-
-    try {
-      final response = await http.get(uri);
-      if (response.statusCode == 200) {
-        final result = jsonDecode(response.body) as Map<String, dynamic>;
-
-        model = ProductModel.fromJson(result);
-      }
-    } catch (e) {
-      throw Exception(e);
-    }
-  }
-
+  
+  
+  
   @override
   Widget build(BuildContext context) {
     return Container();
