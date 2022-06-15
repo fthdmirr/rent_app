@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rent_app/home/view/tab_view.dart';
-import 'package:rent_app/product_detail/view/product_detail.dart';
-import 'package:rent_app/product_detail/view/product_detail_view.dart';
-import 'package:rent_app/profile/view_model/profile_view_model.dart';
-import 'package:rent_app/start/authentication/authentication_status.dart';
-import 'package:rent_app/start/register/view/register_view.dart';
-import 'package:rent_app/start/user/view_model/user_view_model.dart';
-import 'start/login/view_model/login_view_model.dart';
-import 'start/register/view_model/register_view_model.dart';
+import 'package:rent_app/utils/constant/router_constants.dart';
+
+
+import 'view/authentication/authentication_status.dart';
+import 'view/authentication/login/view_model/login_view_model.dart';
+import 'view/authentication/register/view_model/register_view_model.dart';
+import 'view/authentication/user/view_model/user_view_model.dart';
+import 'view/profile/view_model/profile_view_model.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'core/router/router.dart' as router;
 
 void main() => runApp(
       MultiProvider(
@@ -30,12 +31,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        theme: ThemeData(
-            appBarTheme: const AppBarTheme(
-          iconTheme: IconThemeData(color: Colors.black),
-        )),
-        debugShowCheckedModeBanner: false,
-        title: 'Rent App',
-        home: ProductDetail());
+      theme: ThemeData(
+          appBarTheme: const AppBarTheme(
+        iconTheme: IconThemeData(color: Colors.black),
+      )),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      debugShowCheckedModeBanner: false,
+      onGenerateRoute: router.Router.generateRoute,
+      initialRoute: splashViewRoute,
+    );
   }
 }

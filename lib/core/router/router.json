@@ -1,0 +1,19 @@
+{
+    "routes": [
+        {
+            "file_path": "view/splash/splash_view.dart",
+            "route_name": "splashViewRoute",
+            "view_name": "SplashView"
+        },
+        {
+            "file_path": "view/profile/profile_view.dart",
+            "route_name": "profileViewRoute",
+            "view_name": "ProfileView"
+        },
+        {
+            "file_path": "view/home/home/tab_view.dart",
+            "route_name": "tabViewRoute",
+            "view_name": "TabView"
+        }        
+        ]        
+}

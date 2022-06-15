@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:rent_app/start/register/service/register_service.dart';
+import 'package:rent_app/view/authentication/register/service/register_service.dart';
 
 void main() {
   test('register Test', () async {
