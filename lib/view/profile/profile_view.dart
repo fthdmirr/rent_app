@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
-import 'view_model/profile_view_model.dart';
+import 'package:rent_app/theme/light_theme.dart';
+import 'profile_view_model.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({Key? key}) : super(key: key);
@@ -12,8 +13,8 @@ class ProfileView extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: Colors.transparent,
-          foregroundColor: Colors.black,
+          backgroundColor: lightThemeData.backgroundColor,
+          foregroundColor: lightThemeData.dividerColor,
           title: const Text('My Profile'),
         ),
         body: Padding(
@@ -83,10 +84,7 @@ class ProfileView extends StatelessWidget {
                                     alignment: Alignment.bottomCenter,
                                     child: Text(
                                       viewModel.products[index].name ?? '',
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w500,
-                                      ),
+                                      style: lightThemeData.textTheme.subtitle1
                                     ),
                                   ),
                                 )

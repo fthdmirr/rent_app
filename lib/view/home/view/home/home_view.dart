@@ -2,8 +2,6 @@
 
 import 'package:flutter/material.dart';
 
-
-import '../product/product.dart';
 import 'home_view_view_model.dart';
 
 class HomeView extends HomeViewViewModel {
@@ -104,8 +102,8 @@ class HomeView extends HomeViewViewModel {
         actions: [
           IconButton(
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Product()));
+                Navigator.pushNamed(context,
+                'productViewRoute');
               },
               icon: Icon(Icons.add_box_outlined))
         ],

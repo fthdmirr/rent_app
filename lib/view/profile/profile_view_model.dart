@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../authentication/register/view/register_view.dart';
-import '../../authentication/user/model/user_model.dart';
-import '../../home/model/home_model.dart';
-import '../service/profile_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../authentication/user/model/user_model.dart';
+import '../home/model/home_model.dart';
+import 'service/profile_service.dart';
 
 class ProfileViewModel extends ChangeNotifier {
   List<ProductModel> products = [];
@@ -41,12 +41,9 @@ class ProfileViewModel extends ChangeNotifier {
       final prefs = await SharedPreferences.getInstance();
       prefs.setString('token', '');
 
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const RegisterView(),
-          ),
-          (route) => false);
+      // ignore: use_build_context_synchronously
+      Navigator.pushNamedAndRemoveUntil(
+          context, 'registerViewRoute', (route) => false);
     }
   }
 }

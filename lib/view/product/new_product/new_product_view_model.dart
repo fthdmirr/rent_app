@@ -2,8 +2,10 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
-import '../../core/network/project_network_manager.dart';
-import '../../model/home_model.dart';
+
+import '../../home/core/network/project_network_manager.dart';
+import '../../home/model/home_model.dart';
+
 import 'product.dart';
 
 abstract class AddProductViewModel extends State<Product> {

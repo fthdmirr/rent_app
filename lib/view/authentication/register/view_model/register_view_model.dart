@@ -60,11 +60,10 @@ class RegisterViewModel extends ChangeNotifier {
         backgroundColor: Colors.green,
         content: Text("Success"),
       ));
-      Navigator.pushAndRemoveUntil(
+      // ignore: use_build_context_synchronously
+      Navigator.pushNamedAndRemoveUntil(
           context,
-          MaterialPageRoute(
-            builder: (context) => const UserView(),
-          ),
+          'userViewRoute',
           (route) => false);
     }
   }

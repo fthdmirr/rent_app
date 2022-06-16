@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:rent_app/utils/constant/router_constants.dart';
+import 'package:rent_app/view/authentication/user/view/user_view.dart';
 import 'package:rent_app/view/home/view/home/home.dart';
+import 'package:rent_app/view/product/new_product/product.dart';
 import 'package:rent_app/view/profile/profile_view.dart';
 
 import '../../view/authentication/login/view/login_view.dart';
 import '../../view/authentication/register/view/register_view.dart';
-import '../../view/home/view/product/product.dart';
 import '../../view/home/view/tab_view.dart';
 import '../../view/product/product_detail/view/product_detail.dart';
 import '../../view/splash/splash_view.dart';
@@ -20,7 +21,7 @@ class Router {
       case tabViewRoute: 
         return MaterialPageRoute(builder: (_) => const TabView());
       case splashViewRoute: 
-        return MaterialPageRoute(builder: (_) => SplashView());
+        return MaterialPageRoute(builder: (_) => const SplashView());
       case loginViewRoute: 
         return MaterialPageRoute(builder: (_) => const LoginView());
       case registerViewRoute:
@@ -28,7 +29,9 @@ class Router {
       case productDetailViewRoute:
         return MaterialPageRoute(builder: (_) =>  ProductDetail());
       case addProductViewRoute:
-        return MaterialPageRoute(builder: (_) =>  Product());    
+        return MaterialPageRoute(builder: (_) =>  Product());   
+      case userViewRoute:
+        return MaterialPageRoute(builder: (_) =>  const UserView());   
                
       default:
         return MaterialPageRoute(

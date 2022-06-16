@@ -14,6 +14,36 @@
             "file_path": "view/home/home/tab_view.dart",
             "route_name": "tabViewRoute",
             "view_name": "TabView"
-        }        
+        },
+        {
+            "file_path": "view/profile/profile_view.dart",
+            "route_name": "homeViewRoute",
+            "view_name": "HomeView"
+        },
+        {
+            "file_path": "view/profile/profile_view.dart",
+            "route_name": "registerViewRoute",
+            "view_name": "RegisterView"
+        },
+        {
+            "file_path": "view/profile/profile_view.dart",
+            "route_name": "addProductViewRoute",
+            "view_name": "ProfileView"
+        },
+        {
+            "file_path": "view/profile/profile_view.dart",
+            "route_name": "profileViewRoute",
+            "view_name": "ProfileView"
+        },
+        {
+            "file_path": "view/profile/profile_view.dart",
+            "route_name": "profileViewRoute",
+            "view_name": "ProfileView"
+        },
+        {
+            "file_path": "view/profile/profile_view.dart",
+            "route_name": "profileViewRoute",
+            "view_name": "ProfileView"
+        } 
         ]        
 }

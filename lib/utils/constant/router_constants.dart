@@ -6,3 +6,4 @@ const String productDetailViewRoute = 'productDetailViewRoute';
 const String addProductViewRoute = 'addProductViewRoute';
 const String profileViewRoute = 'profileViewRoute';
 const String tabViewRoute = 'tabViewRoute';
+const String userViewRoute = 'userViewRoute';
