@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../home/view/tab_view.dart';
+import '../../../../locator.dart';
 import '../model/user_model.dart';
 import '../service/user_service.dart';
 
@@ -33,9 +34,8 @@ class UserViewModel extends ChangeNotifier {
 
   sendInfosToServiceAndNavigateToHome(BuildContext context) async {
     _changeStatus;
-    final prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString('token');
-    final userId = prefs.getString('id');
+    final token = getIt<SharedPreferences>().getString('token');
+    final userId = getIt<SharedPreferences>().getString('id');
     /*
     final int statusCode =
         await _service.sendPhoto(imageFile!, basename(imageFile!.path), token ?? '');

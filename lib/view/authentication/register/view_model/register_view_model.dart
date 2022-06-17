@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../user/view/user_view.dart';
+import '../../../../locator.dart';
 import '../service/register_service.dart';
 
 class RegisterViewModel extends ChangeNotifier {
@@ -23,7 +23,8 @@ class RegisterViewModel extends ChangeNotifier {
     if (_formKey.currentState?.validate() ?? false) {
       final response = await _getRegisterResult();
 
-      _responseActions(context, response?['token'] ?? '', response?['userId'] ?? '');
+      _responseActions(
+          context, response?['token'] ?? '', response?['userId'] ?? '');
 
       notifyListeners();
     }
@@ -45,26 +46,18 @@ class RegisterViewModel extends ChangeNotifier {
 
   Future<void> _responseActions(
       BuildContext context, String token, String id) async {
-    final prefs = await SharedPreferences.getInstance();
-
-    prefs.setString('token', token);
-    prefs.setString('id', id);
-
-    if (token.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        backgroundColor: Colors.red,
-        content: Text("Error"),
-      ));
-    } else {
+    if (token.isNotEmpty) {
+      getIt<SharedPreferences>().setString('token', token);
+      getIt<SharedPreferences>().setString('id', id);
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         backgroundColor: Colors.green,
         content: Text("Success"),
       ));
-      // ignore: use_build_context_synchronously
-      Navigator.pushNamedAndRemoveUntil(
-          context,
-          'userViewRoute',
-          (route) => false);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        backgroundColor: Colors.red,
+        content: Text("Error"),
+      ));
     }
   }
 }

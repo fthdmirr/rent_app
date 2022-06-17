@@ -1,8 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:rent_app/utils/widget/custom_text_field.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import 'new_product_view_model.dart';
 
 class AddProduct extends AddProductViewModel {
@@ -64,7 +62,6 @@ class AddProduct extends AddProductViewModel {
               },
               child: Container(
                 alignment: Alignment.center,
-                child: Text('İlanı Yayınla'),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: Colors.orange[200],
@@ -74,6 +71,7 @@ class AddProduct extends AddProductViewModel {
                 ),
                 height: size.height * 0.05,
                 width: size.width * 0.3,
+                child: Text('İlanı Yayınla'),
               )),
         ],
       ),

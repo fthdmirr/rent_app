@@ -4,6 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:rent_app/theme/light_theme.dart';
+import 'package:rent_app/utils/constant/router_constants.dart';
+import 'package:rent_app/locator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'model/onboard_model.dart';
 
@@ -28,24 +31,24 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           CustomPaint(
             painter: ArcPainter(),
             child: SizedBox(
-              height: screenSize.height /1.4,//2
+              height: screenSize.height / 1.4, //2
               width: screenSize.width,
             ),
           ),
           Positioned(
-            top:5,// 10,//130
+            top: 5, // 10,//130
             right: 5,
             left: 5,
             //bottom: 500,//-
             child: Lottie.asset(
               tabs[_currentIndex].lottieFile,
               key: Key('${Random().nextInt(999999999)}'),
-              width: 600, 
+              width: 600,
               alignment: Alignment.topCenter,
             ),
           ),
           Align(
-            alignment: Alignment.bottomCenter,//yazı
+            alignment: Alignment.bottomCenter, //yazı
             child: SizedBox(
               height: 270,
               child: Column(
@@ -59,10 +62,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         return Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Text(
-                              tab.title,
-                              style: lightThemeData.textTheme.bodyText2
-                            ),
+                            Text(tab.title,
+                                style: lightThemeData.textTheme.bodyText2),
                             const SizedBox(height: 50),
                             Text(
                               tab.subtitle,
@@ -93,13 +94,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
+        onPressed: () async {
           if (_currentIndex == 2) {
-            _pageController.animateToPage(
-              0,
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.linear,
-            );
+            getIt<SharedPreferences>().setBool('isShowed', true);
+
+            Navigator.of(context).pushReplacementNamed(tabViewRoute);
           } else {
             _pageController.nextPage(
               duration: const Duration(milliseconds: 300),
@@ -108,7 +107,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           }
         },
         backgroundColor: lightThemeData.backgroundColor,
-        child: Icon(CupertinoIcons.chevron_right, color: lightThemeData.canvasColor),
+        child: Icon(CupertinoIcons.chevron_right,
+            color: lightThemeData.canvasColor),
       ),
     );
   }
@@ -133,7 +133,6 @@ class ArcPainter extends CustomPainter {
       ..lineTo(0.0, size.height - 185)
       ..quadraticBezierTo(
           size.width / 2, size.height - 50, size.width, size.height - 185)
-           
       ..lineTo(size.width, size.height)
       ..lineTo(size.width, 0)
       ..close();
@@ -162,10 +161,11 @@ class _DotIndicator extends StatelessWidget {
         width: 6.0,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: isSelected ? lightThemeData.canvasColor : lightThemeData.cardColor,
+          color: isSelected
+              ? lightThemeData.canvasColor
+              : lightThemeData.cardColor,
         ),
       ),
     );
   }
 }
-

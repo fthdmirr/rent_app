@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../authentication/user/model/user_model.dart';
 import '../home/model/home_model.dart';
+import '../../locator.dart';
 import 'service/profile_service.dart';
 
 class ProfileViewModel extends ChangeNotifier {
@@ -38,8 +39,7 @@ class ProfileViewModel extends ChangeNotifier {
     final result = await _service.logOut();
 
     if (result) {
-      final prefs = await SharedPreferences.getInstance();
-      prefs.setString('token', '');
+      getIt<SharedPreferences>().setString('token', '');
 
       // ignore: use_build_context_synchronously
       Navigator.pushNamedAndRemoveUntil(

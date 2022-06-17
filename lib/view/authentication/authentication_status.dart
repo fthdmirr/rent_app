@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../locator.dart';
+
 enum AuthenticationStatusEnum { authenticated, unauthenticated, unknown }
 
 class AuthenticationStatus extends ChangeNotifier {
@@ -8,8 +10,7 @@ class AuthenticationStatus extends ChangeNotifier {
   AuthenticationStatusEnum get status => _status;
 
   initStatus() async {
-    final prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString('token');
+    final token = getIt<SharedPreferences>().getString('token');
     if (token != null && token.isNotEmpty) {
       _status = AuthenticationStatusEnum.authenticated;
     } else {

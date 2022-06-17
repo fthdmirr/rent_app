@@ -6,14 +6,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../utils/constant/service_constants.dart';
 import '../../authentication/user/model/user_model.dart';
 import '../../home/model/home_model.dart';
-
-
+import '../../../locator.dart';
 
 class ProfileService {
   Future<bool> logOut() async {
     try {
-      final prefs = await SharedPreferences.getInstance();
-      final token = prefs.getString('token');
+      final token = getIt<SharedPreferences>().getString('token');
 
       final url = Uri.parse('${ServiceConstant.baseUrl}/users/sing-out');
       final response = await http.post(url,
@@ -28,8 +26,7 @@ class ProfileService {
   }
 
   Future<User?> getUser() async {
-    final prefs = await SharedPreferences.getInstance();
-    final id = prefs.getString('id');
+    final id = getIt<SharedPreferences>().getString('id');
     final url = Uri.parse('${ServiceConstant.baseUrl}/users/$id');
     final response = await http.get(url);
     User? user;

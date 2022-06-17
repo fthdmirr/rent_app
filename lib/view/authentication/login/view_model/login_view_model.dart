@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../home/view/home/home.dart';
+import '../../../../locator.dart';
 import '../service/login_service.dart';
 
 class LoginViewModel extends ChangeNotifier {
@@ -41,8 +42,7 @@ class LoginViewModel extends ChangeNotifier {
 
   Future<void> _responseActions(
       BuildContext context, String token, String id) async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setString('token', token);
+    getIt<SharedPreferences>().setString('token', token);
 
     if (token.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
