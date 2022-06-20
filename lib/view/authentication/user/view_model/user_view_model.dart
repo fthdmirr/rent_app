@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../home/view/tab_view.dart';
@@ -36,10 +37,10 @@ class UserViewModel extends ChangeNotifier {
     _changeStatus;
     final token = getIt<SharedPreferences>().getString('token');
     final userId = getIt<SharedPreferences>().getString('id');
-    /*
-    final int statusCode =
+    
+    final int? statusCode =
         await _service.sendPhoto(imageFile!, basename(imageFile!.path), token ?? '');
-        */
+        
 
     user = await _service.sendNameInfos(
       userId ?? '',

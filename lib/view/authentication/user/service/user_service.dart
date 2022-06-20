@@ -9,7 +9,7 @@ import '../model/user_model.dart';
 
 class UserService {
   Future<int?> sendPhoto(File file, String fileName, String token) async {
-    final url = Uri.parse('${ServiceConstant.baseUrl}/users/upload-photo');
+    final url = Uri.parse('${ServiceConstant.baseUrl}/users/profile-photo');
 
     try {
       final request = http.MultipartRequest('POST', url);
@@ -23,11 +23,11 @@ class UserService {
 
       request.files.add(
         http.MultipartFile(
-          'image',
+          'profileImage',
           file.readAsBytes().asStream(),
           file.lengthSync(),
           filename: fileName,
-          contentType: MediaType('application', 'x-tar'),
+          contentType: MediaType('image', 'png'),
         ),
       );
 

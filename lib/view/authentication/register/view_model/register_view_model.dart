@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rent_app/utils/constant/router_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../locator.dart';
@@ -53,6 +54,8 @@ class RegisterViewModel extends ChangeNotifier {
         backgroundColor: Colors.green,
         content: Text("Success"),
       ));
+      Navigator.pushNamedAndRemoveUntil(
+          context, userViewRoute, (route) => false);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         backgroundColor: Colors.red,

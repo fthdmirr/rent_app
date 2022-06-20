@@ -5,7 +5,8 @@ import 'package:http/http.dart' as http;
 import '../../../../utils/constant/service_constants.dart';
 
 class RegisterService {
-  Future<Map<String,dynamic>?> postRegister(String email, String password) async {
+  Future<Map<String, dynamic>?> postRegister(
+      String email, String password) async {
     final uri = Uri.parse('${ServiceConstant.baseUrl}/users/sing-up');
 
     try {
