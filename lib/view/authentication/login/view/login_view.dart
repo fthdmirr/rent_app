@@ -40,6 +40,7 @@ class LoginView extends StatelessWidget {
               context.emptySizedHeightBoxLow3x,
               CustomInputWidget(
                 labelText: 'Password',
+                obscureText: true,
                 controller: context.watch<LoginViewModel>().password,
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {

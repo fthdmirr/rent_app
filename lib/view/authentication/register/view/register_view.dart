@@ -41,6 +41,8 @@ class RegisterView extends StatelessWidget {
               context.emptySizedHeightBoxLow3x,
               CustomInputWidget(
                 labelText: 'Password',
+                                obscureText: true,
+
                 controller: context.read<RegisterViewModel>().password,
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
@@ -52,6 +54,7 @@ class RegisterView extends StatelessWidget {
               context.emptySizedHeightBoxLow3x,
               CustomInputWidget(
                 labelText: 'Repeat Password',
+                obscureText: true,
                 controller: context.read<RegisterViewModel>().repeatPassword,
                 validator: (String? value) {
                   if (context.read<RegisterViewModel>().repeatPassword.text !=
@@ -94,11 +97,9 @@ class RegisterView extends StatelessWidget {
                         builder: (context) => const LoginView(),
                       ));
                 },
-                child: Text(
-                  'Already have an account?',
-                  style: context.textTheme.bodyText2
-                      ?.copyWith(fontWeight: FontWeight.w300),
-                ),
+                child: const Text('Already have an account?',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w300, color: Colors.black)),
               ),
               context.emptySizedHeightBoxNormal,
               Divider(thickness: context.dynamicHeight(0.0025)),

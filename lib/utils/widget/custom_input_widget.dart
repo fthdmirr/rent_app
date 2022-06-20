@@ -6,10 +6,11 @@ class CustomInputWidget extends StatelessWidget {
     Key? key,
     required this.labelText,
     required this.controller,
-    this.validator,
+    this.validator, this.obscureText,
   }) : super(key: key);
 
   final String labelText;
+  final bool? obscureText;
   final TextEditingController controller;
   final String? Function(String?)? validator;
 
@@ -17,7 +18,9 @@ class CustomInputWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
+      obscureText: obscureText ?? false,
       validator: validator,
+      style: const TextStyle(color: Colors.black),
       decoration: InputDecoration(
         labelText: labelText,
         border: OutlineInputBorder(
